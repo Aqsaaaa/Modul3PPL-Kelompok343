@@ -16,14 +16,11 @@ class LoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // Automatic Testing Login
                 $browser 
-                ->visit('/login')
-                ->type('email', 'duskuser@example.com')
-                ->type('password', 'password')
-                ->press('LOG IN')
-                ->assertPathIs('/dashboard')
-                ->press('Dusk User')
-                ->clickLink('Log Out');
-
+                ->visit('/login') // Visit ke halaman login
+                ->type('email', 'duskuser@example.com') // Mengisi form email
+                ->type('password', 'password') // Mengisi form Password
+                ->press('LOG IN') // Tekan tombol login
+                ->assertPathIs('/dashboard'); // Cek apakah sudah masuk ke halaman dashboard
                 });
     }
 }

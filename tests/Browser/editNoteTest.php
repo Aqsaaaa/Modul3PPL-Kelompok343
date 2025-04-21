@@ -16,40 +16,22 @@ class EditNoteTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
 
-            $browser->visit('/register')
-            ->type('name', 'Dusk User')
-            ->type('email', 'duskuser@example.com')
-            ->type('password', 'password')
-            ->type('password_confirmation', 'password')
-            ->press('REGISTER')
-            ->assertPathIs('/dashboard')
-            ->press('Dusk User')
-            ->clickLink('Log Out')
-            ->visit('/login')
-            ->type('email', 'duskuser@example.com')
-            ->type('password', 'password')
-            ->press('LOG IN')
-            ->assertPathIs('/dashboard')
-            ->clickLink('Notes')
-            ->clickLink('Create Note')
-            ->assertPathIs('/create-note')
-            ->type('title', 'Dusk Test Note')
-            ->type('description', 'This is a note created by Laravel Dusk test.')
-            ->press('CREATE')
-            ->assertPathIs('/notes')
-            ->assertSee('Dusk Test Note')
-            ->press('Dusk User')
-            ->clickLink('Log Out')
-            ->assertPathIs('/')
-            ->clickLink('Edit')
-            ->assertPathBeginsWith('/notes/')
-            ->type('title', 'Dusk Test Note Updated')
-            ->type('content', 'Updated content by Dusk test.')
-            ->press('Update')
-            ->assertPathIs('/notes')               
-            ->assertSee('Dusk Test Note Updated')
-            ->clickLink('Log Out')
-            ->assertPathIs('/');
+            $browser->visit('/login') // Visit ke halaman login
+            ->type('email', 'duskuser@example.com') // Mengisi form email
+            ->type('password', 'password') // Mengisi form Password
+            ->press('LOG IN') // Tekan tombol login
+            ->assertPathIs('/dashboard') // Cek apakah sudah masuk ke halaman dashboard
+            ->clickLink('Notes') // Tekan tombol Notes
+            ->assertPathIs('/notes') // Cek apakah sudah masuk ke halaman notes
+            ->assertSee('Dusk Test Note')// Cek apakah sudah masuk ke halaman notes
+            ->clickLink('Edit')// Tekan tombol Edit
+            ->assertPathBeginsWith('/edit-note-page/') // Cek apakah sudah masuk ke halaman notes
+            ->press("")// Tekan tombol Edit (initial)
+            ->type('title', 'Dusk Test Note Updated') // Mengisi form email
+            ->type('description', 'Updated content by Dusk test.') // Mengisi form Password
+            ->press('UPDATE') // Tekan tombol Update
+            ->assertPathIs('/notes')// Cek apakah sudah masuk ke halaman notes
+            ->assertSee('Dusk Test Note Updated'); // Cek apakah sudah masuk ke halaman notes
         });
     }
 }

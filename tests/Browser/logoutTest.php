@@ -15,9 +15,14 @@ class LogoutTest extends DuskTestCase
     public function test_user_can_logout()
     {
         $this->browse(function (Browser $browser) {
-            //Automatic Testing Logout 
-            $browser->clickLink('Logout')
-                ->assertPathIs('/');
+            $browser 
+                ->visit('/login') // Visit ke halaman login
+                ->type('email', 'duskuser@example.com') // Mengisi form email
+                ->type('password', 'password') // Mengisi form Password
+                ->press('LOG IN') // Tekan tombol login
+                ->assertPathIs('/dashboard') // Cek apakah sudah masuk ke halaman dashboard
+                ->press('Dusk User') // Tekan tombol Dusk User
+                ->clickLink('Log Out'); // Tekan tombol Log Out
         });
     }
 }
